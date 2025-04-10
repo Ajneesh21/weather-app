@@ -1,0 +1,119 @@
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.locationInput {
+    padding: 10px;
+    width: 70%;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+.searchButton {
+    padding: 10px 15px;
+    background-color: #4361ee;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.searchButton:hover {
+    background-color: #3a56d4;
+}
+
+.weatherCard {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.location {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.date {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.weatherInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.weatherIcon {
+    width: 80px;
+    height: 80px;
+}
+
+.temperature {
+    font-size: 36px;
+    margin-left: 15px;
+}
+
+.description {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+.details {
+    display: flex;
+    justify-content: space-around;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.forecastContainer {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+.forecastCard {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 120px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+}
+
+.forecastDay {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.forecastIcon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.forecastTemp {
+    margin-top: 10px;
+}
