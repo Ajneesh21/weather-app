@@ -93,20 +93,10 @@ export default function WeatherApp() {
     // Initialize with default location on mount
     useEffect(() => {
         fetchWeather('Bangalore');
-
-        // Add parallax scrolling effect for background
-        const handleScroll = () => {
-            const scrollValue = window.scrollY;
-            const bgElement = document.getElementById('weather-bg');
-            if (bgElement) {
-                // Use translateZ(0) to force hardware acceleration and prevent white gaps
-                bgElement.style.transform = `translateY(${scrollValue * 0.5}px) translateZ(0)`;
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+    
+        return () => { };
     }, []);
+
 
 
     // Determine background gradient based on time of day and weather condition
@@ -171,19 +161,14 @@ export default function WeatherApp() {
                 id="weather-bg"
                 sx={{
                     minHeight: '100vh',
+                    width: '100vw',
                     background: getBackgroundGradient(),
-                    backgroundAttachment: 'fixed',
                     position: 'fixed',
-                    top: 0,
+                    top: '0',
                     left: 0,
                     right: 0,
                     bottom: 0,
                     zIndex: -1,
-                    // Add these properties to prevent white gaps
-                    width: '100%',
-                    height: '400%',
-                    overflowY: 'hidden',
-                    transform: 'translateZ(0)', // Force hardware acceleration
                     backgroundSize: 'cover',
                 }}
 
@@ -283,6 +268,7 @@ export default function WeatherApp() {
                     minHeight: '100vh',
                     position: 'relative',
                     pt: { xs: 2, sm: 4 },
+                    overflowY:'auto',
                     pb: 6,
                 }}
             >
