@@ -14,7 +14,7 @@ import {
     SwipeableDrawer, IconButton, useTheme, Divider
 } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CloudIcon from '@mui/icons-material/Cloud';
+import CloudIcon from '@mui/icons-material/CloudSync';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -50,10 +50,11 @@ const getTheme = (mode) => createTheme({
     },
     components: {
         MuiPaper: {
+            defaultProps: {
+                elevation: 0,
+            },
             styleOverrides: {
-                root: {
-                    backgroundImage: 'none',
-                },
+                root: { backgroundImage: 'none' }
             },
         },
     },
@@ -157,22 +158,50 @@ export default function WeatherApp() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Box
-                id="weather-bg"
-                sx={{
-                    minHeight: '100vh',
-                    width: '100vw',
-                    background: getBackgroundGradient(),
-                    position: 'fixed',
-                    top: '0',
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    zIndex: -1,
-                    backgroundSize: 'cover',
-                }}
 
-            />
+            {/* Background box */}
+            {weatherData ? (
+                <Box
+                    id="weather-bg"
+                    sx={{
+                        minHeight: '100vh',
+                        width: '100vw',
+                        background: getBackgroundGradient(),
+                        position: 'fixed',
+                        top: '0',
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: -1,
+                        backgroundSize: 'cover',
+                    }}
+                />):(
+                <Box
+                    id="weather-bg"
+                    sx={{
+                        minHeight: '100vh',
+                        width: '100vw',
+                        background: theme.palette.background.default,
+                        position: 'fixed',
+                        top: '0',
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: -1,
+                        backgroundSize: 'cover',
+                    }}
+                />)}
+            {/* Display loading indicator if data is not loaded */}
+            {!weatherData && !error && (<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100vw', minHeight: 'calc(100vh - 100px)' }}>
+                    <Typography variant="h5" >
+                        Fetching weather...
+                    </Typography>
+                    <CircularProgress />
+
+                </Box>
+            )}
+
+
 
             {/* Mobile drawer */}
             <SwipeableDrawer
@@ -269,19 +298,19 @@ export default function WeatherApp() {
                     position: 'relative',
                     pt: { xs: 2, sm: 4 },
                     overflowY:'auto',
-                    pb: 6,
+                    pb: 6
                 }}
             >
                 <Container maxWidth="xl">
                     {/* Header */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                    {weatherData && (<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             <IconButton
                                 sx={{
                                     mr: 1,
                                     color: 'white',
                                     display: { sm: 'flex', md: 'none' }
-                                }}
+                            }}
                                 onClick={toggleDrawer(true)}
                             >
                                 <MenuIcon />
@@ -316,26 +345,21 @@ export default function WeatherApp() {
                         >
                             {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
                         </IconButton>
-                    </Box>
+                    </Box>)}
 
                     {/* Search Bar */}
-                    <Box sx={{ mb: 4, maxWidth: { xs: '100%', md: '70%', lg: '50%' }, mx: 'auto' }}>
+                    {weatherData && (<Box sx={{ mb: 4, maxWidth: { xs: '100%', md: '70%', lg: '50%' }, mx: 'auto' }}>
                         <SearchBar onSearch={fetchWeather} />
-                    </Box>
-
-                    {loading && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
-                            <CircularProgress sx={{ color: 'white' }} />
-                        </Box>
-                    )}
+                    </Box>)}
 
                     {error && (
-                        <Fade in={true}>
+                      <Box sx={{ mt: 3}}>
+                         <Fade in={true}>
                             <Alert
                                 severity="error"
                                 sx={{
                                     my: 2,
-                                    borderRadius: 2,
+                                    borderRadius: 2,  
                                     backgroundColor: 'rgba(211, 47, 47, 0.85)',
                                     color: 'white',
                                     '& .MuiAlert-icon': {
@@ -344,11 +368,12 @@ export default function WeatherApp() {
                                 }}
                             >
                                 {error}
-                            </Alert>
+                            </Alert> 
                         </Fade>
-                    )}
+                      </Box>
+                         )}
 
-                    {weatherData && !loading && (
+                    {weatherData && (
                         <Fade in={true} timeout={800}>
                             <Box>
                                 {/* Desktop layout - side by side */}
@@ -402,7 +427,7 @@ export default function WeatherApp() {
                                             </Box>
                                             <Box>
                                                 <Typography variant="body2" sx={{ mb: 1, fontWeight: 'medium' }}>
-                                                    Air Quality
+                                                    Air Quality 
                                                 </Typography>
                                                 <Typography variant="body2" sx={{ opacity: 0.8 }}>
                                                     {weatherData.current.air_quality?.['us-epa-index'] ?
