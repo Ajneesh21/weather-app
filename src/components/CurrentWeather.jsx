@@ -7,7 +7,6 @@ import CompressIcon from '@mui/icons-material/Compress';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { styled } from '@mui/material/styles';
 
-// Styled components for better effects
 const GlassCard = styled(Card)(({ theme, condition }) => ({
     background: 'rgba(255, 255, 255, 0.15)',
     backdropFilter: 'blur(10px)',
